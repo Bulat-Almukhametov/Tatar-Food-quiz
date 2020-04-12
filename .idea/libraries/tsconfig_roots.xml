@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="tsconfig$roots" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$USER_HOME$/AppData/Local/Temp/2677c75cd5db74f6453c9237d614c8c5747e/skylight-typedefs" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$USER_HOME$/AppData/Local/Temp/2677c75cd5db74f6453c9237d614c8c5747e/skylight-typedefs" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
