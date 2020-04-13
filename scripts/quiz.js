@@ -1,4 +1,4 @@
-import {pictureMaterials, recipeMaterials, rightMaterial, wrongMaterial, transparentMaterial} from "./materials";
+import {pictureMaterials, rightMaterial, wrongMaterial, transparentMaterial} from "./materials";
 
 const Scene = require('Scene');
 const Diagnostics = require('Diagnostics');
@@ -11,10 +11,11 @@ const picturePlane = Scene.root.findFirst('picturePlane');
 const recipePlane = Scene.root.findFirst('recipePlane');
 const answerPlane = Scene.root.findFirst('answerPlane');
 
-var frameNumber = 0;
-setFrame(0);
+let accept = false;
+setFrame();
 
 const face = FaceTracking.face(0);
+
 FaceGestures.onNod(face).subscribe(function() {
     setAnswer(true);
 });
@@ -23,20 +24,32 @@ FaceGestures.onShake(face).subscribe(function() {
     setAnswer(false);
 });
 
-function setFrame(number) {
-    setMaterial(picturePlane, pictureMaterials[number]);
-    setMaterial(recipePlane, recipeMaterials[number]);
+function setFrame() {
+    const number = getRandomFrame();
+
+    setMaterial(picturePlane, pictureMaterials[number].picture);
+    setMaterial(recipePlane, pictureMaterials[number].recipe);
+    accept = pictureMaterials[number].accept;
+
+    pictureMaterials.splice(number, 1);
 }
 
 function setAnswer(value) {
-    if (value) {
+
+    if (value === accept) {
         setMaterial(answerPlane, rightMaterial);
     } else {
         setMaterial(answerPlane, wrongMaterial);
     }
     Time.setTimeout(function () {
         setMaterial(answerPlane, transparentMaterial);
-        setFrame(++frameNumber);
+
+        if (pictureMaterials.length > 0) {
+            setFrame();
+        } else {
+            setMaterial(picturePlane, transparentMaterial);
+            setMaterial(recipePlane, transparentMaterial);
+        }
     }, 2000)
 }
 
@@ -48,4 +61,8 @@ function setMaterial(planeValue, materialValue) {
             });
         }
     });
+}
+
+function getRandomFrame() {
+    return Math.floor(Math.random() * (pictureMaterials.length));
 }

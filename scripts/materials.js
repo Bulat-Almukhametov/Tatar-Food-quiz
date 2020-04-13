@@ -1,13 +1,26 @@
 const Materials = require('Materials');
 
 export const pictureMaterials = [
-    Materials.findFirst('ochpocmakMaterial'),
-    Materials.findFirst('chakchakMaterial')
-];
-
-export const recipeMaterials = [
-    Materials.findFirst('ochpochmakRecipeMaterial'),
-    Materials.findFirst('chakchakRecipeMaterial')
+    {
+        picture: Materials.findFirst('ochpocmakMaterial'),
+        recipe: Materials.findFirst('ochpochmakRecipeMaterial'),
+        accept: true
+    },
+    {
+        picture: Materials.findFirst('chakchakMaterial'),
+        recipe: Materials.findFirst('chakchakRecipeMaterial'),
+        accept: true
+    },
+    {
+        picture: Materials.findFirst('peremechMaterial'),
+        recipe: Materials.findFirst('peremechRecipeMaterial'),
+        accept: false
+    },
+    {
+        picture: Materials.findFirst('gubadiyaMaterial'),
+        recipe: Materials.findFirst('gubadiyaRecipeMaterial'),
+        accept: true
+    }
 ];
 
 export const rightMaterial = Materials.findFirst('rightMaterial');
