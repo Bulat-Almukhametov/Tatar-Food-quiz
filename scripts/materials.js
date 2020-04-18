@@ -1,3 +1,4 @@
+// @ts-ignore
 const Materials = require('Materials');
 
 export const pictureMaterials = [
@@ -26,6 +27,7 @@ export const pictureMaterials = [
 export const rightMaterial = Materials.findFirst('rightMaterial');
 export const wrongMaterial = Materials.findFirst('wrongMaterial');
 export const transparentMaterial = Materials.findFirst('transparentMaterial');
+export const titleMaterial = Materials.findFirst('titleMaterial');
 
 export function setMaterial(planeValue, materialValue) {
     planeValue.then(function (plane) {

@@ -4,10 +4,13 @@ import {SceneFacade} from "./scene-facade";
 const Time = require('Time');
 
 const SHOW_ANSWER_DURATION = 2000;
+const SHOW_TITLE_DURATION = 1800;
 
 const facade = new SceneFacade();
 let accept;
 let isPlaying = false;
+let rightAnswers = 0;
+let answers = 0;
 
 function setNextFrame() {
     const number = getRandomFrameId();
@@ -22,15 +25,32 @@ function canContinue() {
     return pictureMaterials.length > 0;
 }
 
+function endGame() {
+    facade.hideFrame();
+    isPlaying = false;
+    facade.setScore(rightAnswers + ' из ' + answers);
+}
+
 export class Game {
     start() {
-        isPlaying = true;
-        setNextFrame();
+        facade.showTitle();
+        Time.setTimeout(function () {
+            facade.hideTitle();
+            isPlaying = true;
+            setNextFrame();
+        }, SHOW_TITLE_DURATION);
     }
 
     setAnswer(value) {
-        if (isPlaying)
-            facade.showAnswer(value === accept);
+        if (!isPlaying) {
+            return;
+        }
+        answers++;
+        let isRight = value === accept;
+        facade.showAnswer(isRight);
+        if (isRight) {
+            rightAnswers++;
+        }
 
         Time.setTimeout(function () {
             facade.hideAnswer();
@@ -38,8 +58,7 @@ export class Game {
             if (canContinue()) {
                 setNextFrame();
             } else {
-                facade.hideFrame();
-                isPlaying = false
+                endGame();
             }
         }, SHOW_ANSWER_DURATION)
     }

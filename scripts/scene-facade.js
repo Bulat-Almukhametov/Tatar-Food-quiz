@@ -1,10 +1,20 @@
-import {pictureMaterials, rightMaterial, setMaterial, transparentMaterial, wrongMaterial} from "./materials";
+import {
+    pictureMaterials,
+    rightMaterial,
+    setMaterial,
+    titleMaterial,
+    transparentMaterial,
+    wrongMaterial
+} from "./materials";
 
 const Scene = require('Scene');
+const Diagnostics = require('Diagnostics');
 
 const picturePlane = Scene.root.findFirst('picturePlane');
 const recipePlane = Scene.root.findFirst('recipePlane');
 const answerPlane = Scene.root.findFirst('answerPlane');
+const titlePlane = Scene.root.findFirst('titlePlane');
+const scoreText = Scene.root.findFirst('scoreText');
 
 function hide(plane) {
     setMaterial(plane, transparentMaterial);
@@ -37,5 +47,17 @@ export class SceneFacade {
     hideFrame() {
         hide(picturePlane);
         hide(recipePlane);
+    }
+
+    showTitle() {
+        setMaterial(titlePlane, titleMaterial);
+    }
+
+    hideTitle() {
+        hide(titlePlane);
+    }
+
+    setScore(text) {
+        scoreText.then(v => v.text = text);
     }
 }
