@@ -10,7 +10,7 @@ function hide(plane) {
     setMaterial(plane, transparentMaterial);
 }
 
-export class sceneFacade {
+export class SceneFacade {
 
     setFrame (number) {
         setMaterial(picturePlane, pictureMaterials[number].picture);
