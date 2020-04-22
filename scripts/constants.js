@@ -1,0 +1,4 @@
+export const SHOW_ANSWER_DURATION = 2000;
+export const SHOW_TITLE_DURATION = 1800;
+export const SHOW_CONFETTI_DURATION = 5000;
+export const CONFETTI_COUNT = 15;

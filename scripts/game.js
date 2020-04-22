@@ -1,10 +1,12 @@
 import {pictureMaterials} from "./materials";
 import {SceneFacade} from "./scene-facade";
+import {
+    SHOW_ANSWER_DURATION,
+    SHOW_CONFETTI_DURATION,
+    SHOW_TITLE_DURATION
+} from "./constants";
 
 const Time = require('Time');
-
-const SHOW_ANSWER_DURATION = 2000;
-const SHOW_TITLE_DURATION = 1800;
 
 const facade = new SceneFacade();
 let accept;
@@ -29,6 +31,17 @@ function endGame() {
     facade.hideFrame();
     isPlaying = false;
     facade.setScore(rightAnswers + ' из ' + answers);
+    if (rightAnswers > answers / 2) {
+        showConfetti();
+    }
+}
+
+function showConfetti() {
+    facade.showConfetti();
+
+    Time.setTimeout(function () {
+        facade.hideConfetti();
+    }, SHOW_CONFETTI_DURATION);
 }
 
 export class Game {
