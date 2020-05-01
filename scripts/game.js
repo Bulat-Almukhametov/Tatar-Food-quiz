@@ -5,10 +5,12 @@ import {
     SHOW_CONFETTI_DURATION,
     SHOW_TITLE_DURATION
 } from "./constants";
+import {AudioPlayer} from "./audio";
 
 const Time = require('Time');
 
 const facade = new SceneFacade();
+const audioPlayer = new AudioPlayer();
 let accept;
 let isPlaying = false;
 let rightAnswers = 0;
@@ -34,6 +36,7 @@ function endGame() {
     if (rightAnswers > answers / 2) {
         showConfetti();
     }
+    audioPlayer.party();
 }
 
 function showConfetti() {
@@ -63,6 +66,9 @@ export class Game {
         facade.showAnswer(isRight);
         if (isRight) {
             rightAnswers++;
+            audioPlayer.right();
+        } else {
+            audioPlayer.wrong();
         }
 
         Time.setTimeout(function () {
